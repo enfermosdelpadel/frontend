@@ -6,6 +6,9 @@ import "./styles.css";
 const ProductDetail = () => {
   const context = useContext(ShoppingCartContext);
 
+  const renderimg =
+    "https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/";
+
   return (
     <aside
       className={`${
@@ -24,18 +27,18 @@ const ProductDetail = () => {
       <figure className="px-6">
         <img
           className="w-full h-full rounded-lg"
-          src={context.prodToShow.image}
-          alt={context.prodToShow.title}
+          src={`${renderimg}/${context.prodToShow.fileUrl}`}
+          alt={context.prodToShow.subType}
         />
       </figure>
       <p className="flex flex-col p-6 ">
         <span className="font-medium text-2xl mb-2">
           ${context.prodToShow.price}
         </span>
-        <span className="font-medium text-md">{context.prodToShow.title}</span>
-        <span className="font-light text-sm">
-          {context.prodToShow.description}
+        <span className="font-medium text-md">
+          {context.prodToShow.subType} {context.prodToShow.brand}
         </span>
+        <span className="font-light text-sm">{context.prodToShow.desc}</span>
       </p>
     </aside>
   );
