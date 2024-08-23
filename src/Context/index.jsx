@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { createContext, useState, useEffect } from "react";
+import { supabase } from "../supabase/client";
 
 export const ShoppingCartContext = createContext();
 

@@ -43,11 +43,3 @@ npm run dev
 ```
 
 Open http://localhost:3000 to view the application in the browser.
-
-## Contributing
-
-Contributions are welcome. Please send a pull request or open an issue to suggest changes or improvements.
-
-## License
-
-This project is under the MIT license. See the [LICENSE](https://opensource.org/licenses/MIT) file for more details.
