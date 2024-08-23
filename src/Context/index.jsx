@@ -37,14 +37,19 @@ export const ShoppingCartProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((response) => response.json())
-      .then((data) => setItems(data));
+    const fetchProfiles = async () => {
+      const { data, error } = await supabase.from("products").select("*");
+      if (error) {
+        throw error;
+      } else {
+        setItems(data);
+      }
+    };
+    fetchProfiles();
   }, []);
-
   const filteredItemsByTitle = (items, searchByTitle) => {
     return items?.filter((item) =>
-      item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+      item.subType.toLowerCase().includes(searchByTitle.toLowerCase())
     );
   };
 

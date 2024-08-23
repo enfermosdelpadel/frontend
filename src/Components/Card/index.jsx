@@ -2,6 +2,9 @@ import { PlusIcon, CheckIcon } from "@heroicons/react/24/solid";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
 
+const renderimg =
+  "https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/";
+
 const Card = (data) => {
   const context = useContext(ShoppingCartContext);
   const showProduct = (productDetail) => {
@@ -44,17 +47,19 @@ const Card = (data) => {
       <figure className="relative shrink-0 overflow-hidden h-4/5 mb-4  w-full rounded-3xl">
         <span className="absolute bottom-0 left-0 bg-gray-200 rounded-lg text-black text-xs m-2 px-3 py-0.5">
           {/* El ? después de category ayuda a que renderice de igual forma el sitio */}
-          {data.data.category}
+          {data.data.type}
         </span>
         <img
           className="w-full h-full object-contain rounded-lg"
-          src={data.data.image}
-          alt={data.data.title}
+          src={`${renderimg}/${data.data.fileUrl}`}
+          alt={data.data.subType}
         />
         {renderIcon(data.data.id)}
       </figure>
       <p className="flex justify-between items-center px-4">
-        <span className="text-sm font-light truncate">{data.data.title}</span>
+        <span className="text-sm font-light truncate">
+          {data.data.subType} {data.data.brand}
+        </span>
         <span className="text-lg font-medium">${data.data.price}</span>
       </p>
     </div>
