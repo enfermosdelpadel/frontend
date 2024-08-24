@@ -18,10 +18,9 @@ const CheckoutSideMenu = () => {
 
   function getCurrentDateFormatted() {
     const date = new Date()
-    // calendar in spanish
-    // const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    // return date.toLocaleDateString('es-ES', options);
-    return date.toLocaleDateString()
+
+    const options = { year: "numeric", month: "numeric", day: "numeric" }
+    return date.toLocaleDateString("es-ES", options)
   }
 
   const currentDate = getCurrentDateFormatted()
