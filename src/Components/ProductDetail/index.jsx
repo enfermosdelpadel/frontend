@@ -1,13 +1,10 @@
-import { useContext } from "react";
-import { XMarkIcon } from "@heroicons/react/24/solid";
-import { ShoppingCartContext } from "../../Context";
-import "./styles.css";
+import { useContext } from "react"
+import { XMarkIcon } from "@heroicons/react/24/solid"
+import { ShoppingCartContext } from "../../Context"
+import "./styles.css"
 
 const ProductDetail = () => {
-  const context = useContext(ShoppingCartContext);
-
-  const renderimg =
-    "https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/";
+  const context = useContext(ShoppingCartContext)
 
   return (
     <aside
@@ -16,7 +13,7 @@ const ProductDetail = () => {
       } product-detail flex-col fixed right-0 border border-black rounded-lg bg-white overflow-y-scroll`}
     >
       <div className="flex justify-between items-center p-6">
-        <h2 className="font-medium text-xl">Detail</h2>
+        <h2 className="font-medium text-xl">Detalles</h2>
         <div>
           <XMarkIcon
             className="h-6 w-6 text-black cursor-pointer"
@@ -27,7 +24,7 @@ const ProductDetail = () => {
       <figure className="px-6">
         <img
           className="w-full h-full rounded-lg"
-          src={`${renderimg}/${context.prodToShow.fileUrl}`}
+          src={context.prodToShow.fileUrl}
           alt={context.prodToShow.subType}
         />
       </figure>
@@ -41,7 +38,7 @@ const ProductDetail = () => {
         <span className="font-light text-sm">{context.prodToShow.desc}</span>
       </p>
     </aside>
-  );
-};
+  )
+}
 
-export default ProductDetail;
+export default ProductDetail

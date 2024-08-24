@@ -1,30 +1,30 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { XMarkIcon } from "@heroicons/react/24/solid";
-import { ShoppingCartContext } from "../../Context";
-import OrderCard from "../../Components/OrderCard";
-import { totalPrice } from "../../utils";
-import "./styles.css";
+import { useContext } from "react"
+import { Link } from "react-router-dom"
+import { XMarkIcon } from "@heroicons/react/24/solid"
+import { ShoppingCartContext } from "../../Context"
+import OrderCard from "../../Components/OrderCard"
+import { totalPrice } from "../../utils"
+import "./styles.css"
 
 const CheckoutSideMenu = () => {
-  const context = useContext(ShoppingCartContext);
+  const context = useContext(ShoppingCartContext)
 
   const handleDelete = (id) => {
     const filteredProds = context.cartProds.filter(
       (product) => product.id != id
-    );
-    context.setCartProds(filteredProds);
-  };
+    )
+    context.setCartProds(filteredProds)
+  }
 
   function getCurrentDateFormatted() {
-    const date = new Date();
+    const date = new Date()
     // calendar in spanish
     // const options = { year: 'numeric', month: 'long', day: 'numeric' };
     // return date.toLocaleDateString('es-ES', options);
-    return date.toLocaleDateString();
+    return date.toLocaleDateString()
   }
 
-  const currentDate = getCurrentDateFormatted();
+  const currentDate = getCurrentDateFormatted()
 
   const handleCheckout = () => {
     const orderToAdd = {
@@ -32,15 +32,15 @@ const CheckoutSideMenu = () => {
       products: context.cartProds,
       totalProds: context.cartProds.length,
       totalPrice: totalPrice(context.cartProds),
-    };
-    context.setOrder([...context.order, orderToAdd]);
-    context.setCartProds([]);
-  };
+    }
+    context.setOrder([...context.order, orderToAdd])
+    context.setCartProds([])
+  }
 
   const ShoppingCart = () => {
-    handleCheckout();
-    context.closeCheckoutSideMenu();
-  };
+    handleCheckout()
+    context.closeCheckoutSideMenu()
+  }
 
   return (
     <aside
@@ -63,7 +63,7 @@ const CheckoutSideMenu = () => {
             key={product.id}
             id={product.id}
             title={product.title}
-            imageURL={product.image}
+            imageURL={product.fileUrl}
             price={"$" + product.price}
             handleDelete={handleDelete}
           />
@@ -86,7 +86,7 @@ const CheckoutSideMenu = () => {
         </Link>
       </div>
     </aside>
-  );
-};
+  )
+}
 
-export default CheckoutSideMenu;
+export default CheckoutSideMenu

@@ -1,35 +1,35 @@
-import { ShoppingCartIcon } from "@heroicons/react/24/solid";
-import { NavLink } from "react-router-dom";
-import { useContext } from "react";
-import { ShoppingCartContext } from "../../Context";
+import { ShoppingCartIcon } from "@heroicons/react/24/solid"
+import { NavLink } from "react-router-dom"
+import { useContext } from "react"
+import { ShoppingCartContext } from "../../Context"
 
 const navLinksRight = [
-  { to: "/my-orders", text: "My orders" },
-  { to: "/my-account", text: "My Account" },
-  { to: "/sign-in", text: "Sign in" },
-];
+  { to: "/my-orders", text: "Mis Órdenes" },
+  { to: "/my-account", text: "Mi cuenta" },
+  { to: "/sign-in", text: "Identificase" },
+]
 
 function NavBar() {
-  const context = useContext(ShoppingCartContext);
+  const context = useContext(ShoppingCartContext)
 
   // Get the categories name from the context
-  const categories = context.categories;
+  const categories = context.categories
 
   // Create an array of objects with the categories name.
   // That array held the data for the left side of the navbar links.
   const navLinksLeft = categories.map((category) => {
-    return { to: `/${category}`, text: category };
-  });
+    return { to: `/${category}`, text: category }
+  })
 
-  const activeStyle = "underline underline-offset-4";
+  const activeStyle = "underline underline-offset-4"
 
   const handleShowCheckoutSideMenu = () => {
     if (context.isCheckoutSideMenuOpen) {
-      context.closeCheckoutSideMenu(false);
+      context.closeCheckoutSideMenu(false)
     } else {
-      context.openCheckoutSideMenu();
+      context.openCheckoutSideMenu()
     }
-  };
+  }
 
   return (
     <>
@@ -78,7 +78,7 @@ function NavBar() {
         </ul>
       </nav>
     </>
-  );
+  )
 }
 
-export default NavBar;
+export default NavBar

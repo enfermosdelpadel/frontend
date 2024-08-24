@@ -1,15 +1,15 @@
-import { useContext } from "react";
-import { ShoppingCartContext } from "../../Context";
-import Layout from "../../Components/Layout";
-import OrderCard from "../../Components/OrderCard";
-import { ChevronLeftIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { useContext } from "react"
+import { ShoppingCartContext } from "../../Context"
+import Layout from "../../Components/Layout"
+import OrderCard from "../../Components/OrderCard"
+import { ChevronLeftIcon } from "@heroicons/react/24/solid"
+import { Link } from "react-router-dom"
 
 function MyOrder() {
-  const context = useContext(ShoppingCartContext);
-  const currentPath = window.location.pathname;
-  let index = currentPath.substring(currentPath.lastIndexOf("/") + 1);
-  if (index === "last") index = context.order?.length - 1;
+  const context = useContext(ShoppingCartContext)
+  const currentPath = window.location.pathname
+  let index = currentPath.substring(currentPath.lastIndexOf("/") + 1)
+  if (index === "last") index = context.order?.length - 1
   return (
     <Layout>
       <div className="flex w-80 relative justify-center items-center mb-5">
@@ -25,13 +25,13 @@ function MyOrder() {
             key={product.id}
             id={product.id}
             title={product.title}
-            imageURL={product.image}
+            imageURL={product.fileUrl}
             price={"$" + product.price}
           />
         ))}
       </div>
     </Layout>
-  );
+  )
 }
 
-export default MyOrder;
+export default MyOrder

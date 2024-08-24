@@ -1,33 +1,30 @@
-import { PlusIcon, CheckIcon } from "@heroicons/react/24/solid";
-import { useContext } from "react";
-import { ShoppingCartContext } from "../../Context";
-
-const renderimg =
-  "https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/";
+import { PlusIcon, CheckIcon } from "@heroicons/react/24/solid"
+import { useContext } from "react"
+import { ShoppingCartContext } from "../../Context"
 
 const Card = (data) => {
-  const context = useContext(ShoppingCartContext);
+  const context = useContext(ShoppingCartContext)
   const showProduct = (productDetail) => {
-    context.openProdDetail();
-    context.setProdToShow(productDetail);
-  };
+    context.openProdDetail()
+    context.setProdToShow(productDetail)
+  }
 
   const addProdToCart = (event, productData) => {
-    event.stopPropagation();
-    context.setCount(context.count + 1);
-    context.setCartProds([...context.cartProds, productData]);
-    context.openCheckoutSideMenu();
-    context.closeProdDetail();
-  };
+    event.stopPropagation()
+    context.setCount(context.count + 1)
+    context.setCartProds([...context.cartProds, productData])
+    context.openCheckoutSideMenu()
+    context.closeProdDetail()
+  }
   const renderIcon = (id) => {
     const isInCart =
-      context.cartProds.filter((product) => product.id == id).length > 0;
+      context.cartProds.filter((product) => product.id == id).length > 0
     if (isInCart) {
       return (
         <button className="absolute top-0 right-0 flex justify-center items-center w-6 h-6 rounded-full m-2 p-1 bg-green-600">
           <CheckIcon className="size-6 text-black" />
         </button>
-      );
+      )
     } else {
       return (
         <button
@@ -36,9 +33,9 @@ const Card = (data) => {
         >
           <PlusIcon className="size-6 text-black" />
         </button>
-      );
+      )
     }
-  };
+  }
   return (
     <div
       className="bg-white backdrop-blur border-white-30 shadow-md cursor-pointer w-56 h-72 flex flex-col justify-center rounded-xl select-none"
@@ -51,7 +48,7 @@ const Card = (data) => {
         </span>
         <img
           className="w-full h-full object-contain rounded-lg"
-          src={`${renderimg}/${data.data.fileUrl}`}
+          src={data.data.fileUrl}
           alt={data.data.subType}
         />
         {renderIcon(data.data.id)}
@@ -63,7 +60,7 @@ const Card = (data) => {
         <span className="text-lg font-medium">${data.data.price}</span>
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card
