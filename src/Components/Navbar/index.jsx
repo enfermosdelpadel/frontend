@@ -13,12 +13,12 @@ function NavBar() {
   const context = useContext(ShoppingCartContext)
 
   // Get the categories name from the context
-  const categories = context.categories
+  const types = context.types
 
-  // Create an array of objects with the categories name.
+  // Create an array of objects with the types name.
   // That array held the data for the left side of the navbar links.
-  const navLinksLeft = categories.map((category) => {
-    return { to: `/${category}`, text: category }
+  const navLinksLeft = types.map((type) => {
+    return { to: `/${type}`, text: type }
   })
 
   const activeStyle = "underline underline-offset-4"

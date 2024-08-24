@@ -9,18 +9,18 @@ import { FaceFrownIcon } from "@heroicons/react/24/outline"
 function Home() {
   const context = useContext(ShoppingCartContext)
 
-  const { category } = useParams()
+  const { type } = useParams()
 
   const renderView = () => {
     if (context.searchByTitle?.length > 0) {
       if (context.filteredItems?.length > 0) {
-        if (!category) {
+        if (!type) {
           return context.filteredItems?.map((item) => (
             <Card key={item.id} data={item} />
           ))
         } else {
           return context.filteredItems?.map((item) => {
-            if (item.category === category) {
+            if (item.type === type) {
               return <Card key={item.id} data={item} />
             }
           })
@@ -36,9 +36,9 @@ function Home() {
         )
       }
     }
-    if (category) {
+    if (type) {
       return context.items?.map((item) => {
-        if (item.category === category) {
+        if (item.type === type) {
           return <Card key={item.id} data={item} />
         }
       })
