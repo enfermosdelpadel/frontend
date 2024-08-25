@@ -17,7 +17,7 @@ function MyOrder() {
           <ChevronLeftIcon className="h-6 w-6 text-black cursor-pointer" />
         </Link>
 
-        <h1>My Orders</h1>
+        <h1>Mis Órdenes</h1>
       </div>
       <div className=" bg-white flex flex-col w-80 rounded-lg border border-black p-3">
         {context.order?.[index]?.products?.map((product) => (
