@@ -48,7 +48,7 @@ const CheckoutSideMenu = () => {
       } checkout-side-menu flex-col fixed right-0 border border-black rounded-lg bg-white`}
     >
       <div className="flex justify-between items-center p-6">
-        <h2 className="font-medium text-xl">My Order</h2>
+        <h2 className="font-medium text-xl">Mi orden</h2>
         <div>
           <XMarkIcon
             className="h-6 w-6 text-black cursor-pointer"
@@ -61,7 +61,7 @@ const CheckoutSideMenu = () => {
           <OrderCard
             key={product.id}
             id={product.id}
-            title={product.title}
+            title={product.type + "  " + product.brand}
             imageURL={product.fileUrl}
             price={"$" + product.price}
             handleDelete={handleDelete}
@@ -77,10 +77,10 @@ const CheckoutSideMenu = () => {
         </p>
         <Link to="/my-orders/last">
           <button
-            className="w-full bg-black py-3 text-white rounded-lg"
+            className="w-full bg-gray-600 py-3 text-white rounded-lg"
             onClick={() => ShoppingCart()}
           >
-            Checkout
+            Finalizar compra
           </button>
         </Link>
       </div>
