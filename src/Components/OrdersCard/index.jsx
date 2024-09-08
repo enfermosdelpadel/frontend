@@ -2,10 +2,10 @@ import {
   ChevronRightIcon,
   CalendarIcon,
   ShoppingCartIcon,
-} from "@heroicons/react/24/solid";
+} from "@heroicons/react/24/solid"
 
 const OrdersCard = (props) => {
-  const { totalPrice, totalProds, datePurchase } = props;
+  const { totalPrice, totalProds, datePurchase } = props
 
   return (
     <div className="bg-white flex rounded-lg mb-4 justify-between items-center border border-black w-80 p-4">
@@ -17,7 +17,7 @@ const OrdersCard = (props) => {
           </div>
           <div className="flex gap-2">
             <ShoppingCartIcon className="h-6 w-6 text-black cursor-pointer" />
-            <span className="font-light">{totalProds} articles </span>
+            <span className="font-light">{totalProds} artículos </span>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -26,7 +26,7 @@ const OrdersCard = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OrdersCard;
+export default OrdersCard

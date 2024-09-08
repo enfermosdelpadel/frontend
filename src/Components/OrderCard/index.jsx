@@ -1,14 +1,14 @@
-import { XMarkIcon } from "@heroicons/react/24/solid"
+import { TrashIcon } from "@heroicons/react/24/solid"
 
 const OrderCard = (props) => {
   const { id, title, imageURL, price, handleDelete } = props
   let renderXMarkIcon
   if (handleDelete) {
     renderXMarkIcon = (
-      <XMarkIcon
+      <TrashIcon
         onClick={() => handleDelete(id)}
-        className="h-6 w-6 text-black cursor-pointer"
-      ></XMarkIcon>
+        className="h-6 w-6 text-black cursor-pointer text-red-600"
+      ></TrashIcon>
     )
   }
   return (
