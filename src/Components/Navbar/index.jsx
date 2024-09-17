@@ -36,7 +36,11 @@ function NavBar() {
       <nav className="flex justify-between items-center bg-white fixed top-0 z-10 w-full py-5 px-8 text-sm font-light">
         <ul className="flex items-center gap-3">
           <li className="font-semibold text-lg">
-            <NavLink to="/">Logo</NavLink>
+            <NavLink to="/">
+              <picture>
+                <img className="h-7 max-w-full" src="/EDP.png" alt="logo" />
+              </picture>
+            </NavLink>
           </li>
 
           {navLinksLeft.map((link) => (

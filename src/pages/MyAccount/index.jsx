@@ -1,12 +1,11 @@
-import React from "react";
-import Layout from "../../Components/Layout";
+import Layout from "../../Components/Layout"
 
 function MyAccount() {
   const user = {
     name: "John Doe",
     address: "123 Main St",
-    phone: "555-1234"
-  };
+    phone: "555-1234",
+  }
 
   return (
     <Layout>
@@ -20,7 +19,7 @@ function MyAccount() {
         <p className="mb-2">Phone: {user.phone}</p>
       </div>
     </Layout>
-  );
+  )
 }
 
-export default MyAccount;
+export default MyAccount
