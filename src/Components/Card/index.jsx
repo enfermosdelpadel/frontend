@@ -49,7 +49,7 @@ const Card = (data) => {
         </span>
         <img
           className="w-full h-full object-contain rounded-lg"
-          src={data.data.fileUrl}
+          src={data.data.image_url}
           alt={data.data.subType}
         />
         {renderIcon(data.data.id)}

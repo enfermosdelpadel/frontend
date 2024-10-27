@@ -25,7 +25,7 @@ function MyOrder() {
             key={product.id}
             id={product.id}
             title={product.type}
-            imageURL={product.fileUrl}
+            imageURL={product.image_url}
             price={"$" + product.price}
           />
         ))}
