@@ -49,16 +49,23 @@ const Card = (data) => {
         </span>
         <img
           className="w-full h-full object-contain rounded-lg"
-          src={data.data.image_url}
-          alt={data.data.subType}
+          src={data.data.image}
+          alt={data.data.sub_type}
         />
         {renderIcon(data.data.id)}
       </figure>
       <p className="flex justify-between items-center px-4">
         <span className="text-sm font-light truncate">
-          {data.data.subType} {data.data.brand}
+          {data.data.sub_type} {data.data.brand}
         </span>
-        <span className="text-lg font-medium">${data.data.price}</span>
+        <span className="text-ls font-medium">
+          {data.data.price?.toLocaleString("es-AR", {
+            maximumFractionDigits: 2,
+            style: "currency",
+            currency: "ARS",
+            useGrouping: true,
+          })}
+        </span>
       </p>
     </div>
   )

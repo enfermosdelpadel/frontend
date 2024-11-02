@@ -7,19 +7,20 @@ import { ShoppingCartContext } from "../../Context"
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
 
 function Home() {
-  const context = useContext(ShoppingCartContext)
+  const { searchByTitle, filteredItems, setSearchByTitle, items } =
+    useContext(ShoppingCartContext)
 
   const { type } = useParams()
 
   const renderView = () => {
-    if (context.searchByTitle?.length > 0) {
-      if (context.filteredItems?.length > 0) {
+    if (searchByTitle?.length > 0) {
+      if (filteredItems?.length > 0) {
         if (!type) {
-          return context.filteredItems?.map((item) => (
+          return filteredItems?.map((item) => (
             <Card key={item.id} data={item} />
           ))
         } else {
-          return context.filteredItems?.map((item) => {
+          return filteredItems?.map((item) => {
             if (item.type === type) {
               return <Card key={item.id} data={item} />
             }
@@ -37,13 +38,13 @@ function Home() {
       }
     }
     if (type) {
-      return context.items?.map((item) => {
+      return items?.map((item) => {
         if (item.type === type) {
           return <Card key={item.id} data={item} />
         }
       })
     } else {
-      return context.items?.map((item) => <Card key={item.id} data={item} />)
+      return items?.map((item) => <Card key={item.id} data={item} />)
     }
   }
 
@@ -51,10 +52,11 @@ function Home() {
     <Layout>
       <div className="flex items-center justify-center relative w-80 mb-4"></div>
       <input
+        id="search"
         className="mt-8 w-80 border-2 border-slate-200 p-2 rounded-2xl sle focus:outline-none select-none"
         type="text"
         placeholder="Buscar productos"
-        onChange={(event) => context.setSearchByTitle(event.target.value)}
+        onChange={(event) => setSearchByTitle(event.target.value)}
       />
       {/* The cards renderize depends of items */}
       <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg p-6">

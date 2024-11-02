@@ -7,13 +7,18 @@ import { totalPrice } from "../../utils"
 import "./styles.css"
 
 const CheckoutSideMenu = () => {
-  const context = useContext(ShoppingCartContext)
+  const {
+    cartProds,
+    setCartProds,
+    order,
+    setOrder,
+    closeCheckoutSideMenu,
+    isCheckoutSideMenuOpen,
+  } = useContext(ShoppingCartContext)
 
   const handleDelete = (id) => {
-    const filteredProds = context.cartProds.filter(
-      (product) => product.id != id
-    )
-    context.setCartProds(filteredProds)
+    const filteredProds = cartProds.filter((product) => product.id != id)
+    setCartProds(filteredProds)
   }
 
   function getCurrentDateFormatted() {
@@ -28,23 +33,23 @@ const CheckoutSideMenu = () => {
   const handleCheckout = () => {
     const orderToAdd = {
       datePurchase: currentDate,
-      products: context.cartProds,
-      totalProds: context.cartProds.length,
-      totalPrice: totalPrice(context.cartProds),
+      products: cartProds,
+      totalProds: cartProds.length,
+      totalPrice: totalPrice(cartProds),
     }
-    context.setOrder([...context.order, orderToAdd])
-    context.setCartProds([])
+    setOrder([...order, orderToAdd])
+    setCartProds([])
   }
 
   const ShoppingCart = () => {
     handleCheckout()
-    context.closeCheckoutSideMenu()
+    closeCheckoutSideMenu()
   }
 
   return (
     <aside
       className={`${
-        context.isCheckoutSideMenuOpen ? "flex" : "hidden"
+        isCheckoutSideMenuOpen ? "flex" : "hidden"
       } checkout-side-menu flex-col fixed right-0 border border-black rounded-lg bg-white`}
     >
       <div className="flex justify-between items-center p-6">
@@ -52,18 +57,23 @@ const CheckoutSideMenu = () => {
         <div>
           <XMarkIcon
             className="h-6 w-6 text-black cursor-pointer"
-            onClick={() => context.closeCheckoutSideMenu()}
+            onClick={() => closeCheckoutSideMenu()}
           ></XMarkIcon>
         </div>
       </div>
       <div className="px-5 overflow-y-scroll flex-1">
-        {context.cartProds.map((product) => (
+        {cartProds.map((product) => (
           <OrderCard
             key={product.id}
             id={product.id}
             title={product.type + "  " + product.brand}
-            imageURL={product.image_url}
-            price={"$" + product.price}
+            imageURL={product.image}
+            price={product.price.toLocaleString("es-AR", {
+              maximumFractionDigits: 2,
+              style: "currency",
+              currency: "ARS",
+              useGrouping: true,
+            })}
             handleDelete={handleDelete}
           />
         ))}
@@ -71,9 +81,7 @@ const CheckoutSideMenu = () => {
       <div className="px-6 mb-6">
         <p className="flex justify-between items-center mb-2">
           <span className="font-light">Total:</span>
-          <span className="font-medium text-2xl">
-            ${totalPrice(context.cartProds)}
-          </span>
+          <span className="font-medium text-2xl">{totalPrice(cartProds)}</span>
         </p>
         <Link to="/my-orders/last">
           <button

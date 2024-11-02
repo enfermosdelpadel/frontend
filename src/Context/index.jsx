@@ -37,19 +37,57 @@ export const ShoppingCartProvider = ({ children }) => {
   const [types, setTypes] = useState([])
 
   useEffect(() => {
-    const fetchProfiles = async () => {
-      const { data, error } = await supabase.from("products").select("*")
+    const fetchProducts = async () => {
+      const { data, error } = await supabase.rpc("get_product_stock")
       if (error) {
         throw error
       } else {
-        setItems(data)
+        const stockProducts = data.reduce((acc, item) => {
+          if (!acc[item.product_id]) {
+            acc[item.product_id] = {
+              id: item.product_id,
+              color: [],
+              size: [],
+            }
+          }
+          acc[item.product_id].stock = item.stock
+          acc[item.product_id].price = item.price
+          acc[item.product_id].sub_type = item.sub_type
+          acc[item.product_id].type = item.type
+          acc[item.product_id].model = item.model
+          acc[item.product_id].brand = item.brand
+          acc[item.product_id].gender = item.gender
+          acc[item.product_id].image = item.image
+          acc[item.product_id].description = item.description
+
+          const colorIndex = acc[item.product_id].color.findIndex(
+            (color) => color === item.color
+          )
+          if (colorIndex === -1) {
+            acc[item.product_id].color.push(item.color)
+          }
+
+          const sizeIndex = acc[item.product_id].size.findIndex(
+            (size) => size === item.size
+          )
+          if (sizeIndex === -1) {
+            acc[item.product_id].size.push(item.size)
+          }
+
+          return acc
+        }, {})
+        setItems(Object.values(stockProducts))
       }
     }
-    fetchProfiles()
+    fetchProducts()
   }, [])
+
   const filteredItemsByTitle = (items, searchByTitle) => {
-    return items?.filter((item) =>
-      item.subType.toLowerCase().includes(searchByTitle.toLowerCase())
+    return items?.filter(
+      (item) =>
+        item.sub_type?.toLowerCase().includes(searchByTitle.toLowerCase()) ||
+        item.model?.toLowerCase().includes(searchByTitle.toLowerCase()) ||
+        item.brand?.toLowerCase().includes(searchByTitle.toLowerCase())
     )
   }
 
