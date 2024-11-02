@@ -25,8 +25,13 @@ function MyOrder() {
             key={product.id}
             id={product.id}
             title={product.type}
-            imageURL={product.image_url}
-            price={"$" + product.price}
+            imageURL={product.image}
+            price={product.price.toLocaleString("es-AR", {
+              maximumFractionDigits: 2,
+              style: "currency",
+              currency: "ARS",
+              useGrouping: true,
+            })}
           />
         ))}
       </div>
