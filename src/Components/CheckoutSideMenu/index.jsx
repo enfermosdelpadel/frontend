@@ -1,6 +1,5 @@
 import { useContext } from "react"
-import { Link } from "react-router-dom"
-import { XMarkIcon } from "@heroicons/react/24/solid"
+import { XMarkIcon, ExclamationCircleIcon } from "@heroicons/react/24/solid"
 import { ShoppingCartContext } from "../../Context"
 import OrderCard from "../../Components/OrderCard"
 import { totalPrice } from "../../utils"
@@ -10,10 +9,10 @@ const CheckoutSideMenu = () => {
   const {
     cartProds,
     setCartProds,
-    order,
-    setOrder,
     closeCheckoutSideMenu,
     isCheckoutSideMenuOpen,
+    setModalCheckout,
+    createAndSendOrder,
   } = useContext(ShoppingCartContext)
 
   const handleDelete = (id) => {
@@ -21,29 +20,35 @@ const CheckoutSideMenu = () => {
     setCartProds(filteredProds)
   }
 
-  function getCurrentDateFormatted() {
-    const date = new Date()
-
-    const options = { year: "numeric", month: "numeric", day: "numeric" }
-    return date.toLocaleDateString("es-ES", options)
-  }
-
-  const currentDate = getCurrentDateFormatted()
-
-  const handleCheckout = () => {
-    const orderToAdd = {
-      datePurchase: currentDate,
-      products: cartProds,
-      totalProds: cartProds.length,
-      totalPrice: totalPrice(cartProds),
-    }
-    setOrder([...order, orderToAdd])
-    setCartProds([])
-  }
+  const totalProds = cartProds.reduce(
+    (acc, product) => acc + product.quantity,
+    0
+  )
 
   const ShoppingCart = () => {
-    handleCheckout()
+    createAndSendOrder(totalPrice(cartProds), totalProds, cartProds)
     closeCheckoutSideMenu()
+    setModalCheckout(true)
+  }
+
+  const renderButton = () => {
+    if (cartProds.length > 0) {
+      return (
+        <button
+          className="w-full bg-green-600 py-3 text-white rounded-lg"
+          onClick={() => ShoppingCart()}
+        >
+          Finalizar compra
+        </button>
+      )
+    } else {
+      return (
+        <button className="w-full bg-gray-600 py-3 text-white rounded-lg">
+          <ExclamationCircleIcon className="h-6 w-6 inline-block mr-2" />
+          El carrito de compras está vacío.
+        </button>
+      )
+    }
   }
 
   return (
@@ -53,7 +58,7 @@ const CheckoutSideMenu = () => {
       } checkout-side-menu flex-col fixed right-0 border border-black rounded-lg bg-white`}
     >
       <div className="flex justify-between items-center p-6">
-        <h2 className="font-medium text-xl">Mi orden</h2>
+        <h2 className="font-medium text-xl capitalize">Mi orden</h2>
         <div>
           <XMarkIcon
             className="h-6 w-6 text-black cursor-pointer"
@@ -66,31 +71,34 @@ const CheckoutSideMenu = () => {
           <OrderCard
             key={product.id}
             id={product.id}
-            title={product.type + "  " + product.brand}
+            title={product.sub_type + "  " + product.brand}
             imageURL={product.image}
-            price={product.price.toLocaleString("es-AR", {
+            size={product.size}
+            price={(product.price * product.quantity).toLocaleString("es-AR", {
               maximumFractionDigits: 2,
               style: "currency",
               currency: "ARS",
               useGrouping: true,
             })}
+            quantity={product.quantity}
             handleDelete={handleDelete}
+            type={product.type}
           />
         ))}
       </div>
       <div className="px-6 mb-6">
         <p className="flex justify-between items-center mb-2">
           <span className="font-light">Total:</span>
-          <span className="font-medium text-2xl">{totalPrice(cartProds)}</span>
+          <span className="font-medium text-2xl">
+            {totalPrice(cartProds).toLocaleString("es-AR", {
+              maximumFractionDigits: 2,
+              style: "currency",
+              currency: "ARS",
+              useGrouping: true,
+            })}
+          </span>
         </p>
-        <Link to="/my-orders/last">
-          <button
-            className="w-full bg-gray-600 py-3 text-white rounded-lg"
-            onClick={() => ShoppingCart()}
-          >
-            Finalizar compra
-          </button>
-        </Link>
+        {renderButton()}
       </div>
     </aside>
   )
