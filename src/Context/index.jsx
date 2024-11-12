@@ -24,7 +24,9 @@ export const ShoppingCartProvider = ({ children }) => {
   const [cartProds, setCartProds] = useState([])
 
   //Shopping Cart - Order
-  const [order, setOrder] = useState([])
+  const [orderID, setOrderID] = useState(null)
+  const [orders, setOrders] = useState([""])
+  const [orderDetails, setOrderDetails] = useState([])
 
   //Get Products
   const [items, setItems] = useState(null)
@@ -35,6 +37,10 @@ export const ShoppingCartProvider = ({ children }) => {
 
   //Get only unique types
   const [types, setTypes] = useState([])
+
+  //Modals
+  const [openModal, setOpenModal] = useState(false)
+  const [modalCheckout, setModalCheckout] = useState(false)
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -105,6 +111,92 @@ export const ShoppingCartProvider = ({ children }) => {
     }
   }, [items])
 
+  function generateOrderNumber(customer_id) {
+    const date = new Date()
+    const year = date.getFullYear().toString().slice(-2)
+    const month = ("0" + (date.getMonth() + 1)).slice(-2)
+    const day = ("0" + date.getDate()).slice(-2)
+    const hour = ("0" + date.getHours()).slice(-2)
+
+    const orderNumber = `00000-${hour}${year}${month}${day}-${customer_id}`
+    return orderNumber
+  }
+
+  const createAndSendOrder = async (totalPrice, totalProds, orderDetail) => {
+    const { data: orderData, error: orderError } = await supabase
+      .from("orders")
+      .insert([
+        {
+          order_number: generateOrderNumber(1),
+          customer_id: 1,
+          order_date: new Date(),
+          total: totalPrice,
+          quantity: totalProds,
+          status: "Pendiente",
+        },
+      ])
+      .select("id")
+
+    if (orderError) {
+      console.error("Error al crear el pedido:", orderError)
+      alert("Error al crear el pedido", orderError)
+      return null
+    }
+
+    console.log("Nuevo ID de pedido:", orderData[0].id)
+    setOrderID(orderData[0].id)
+
+    const { error: detailError, data: detailData } = await supabase
+      .from("order_details")
+      .upsert(
+        orderDetail.map((item) => ({
+          order_id: orderData[0].id,
+          product_id: item.id,
+          quantity: item.quantity,
+          unit_price: item.price,
+          size: item.size,
+        })),
+        { onConflict: ["order_id", "product_id"] }
+      )
+
+    if (detailError) {
+      console.error("Error al agregar detalles del pedido:", detailError)
+      return null
+    }
+
+    console.log("Detalles del pedido agregados:", detailData)
+    return detailData
+  }
+
+  const fetchOrders = async () => {
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*,customers(*)")
+    if (error) {
+      throw error
+    }
+    setOrders(data)
+  }
+
+  useEffect(() => {
+    fetchOrders()
+  }, [])
+
+  const fetchOrderDetails = async () => {
+    const { data, error } = await supabase
+      .from("order_details")
+      .select("*, products(*), orders(*)")
+    if (error) {
+      throw error
+    }
+    console.log(data)
+    setOrderDetails(data)
+  }
+
+  useEffect(() => {
+    fetchOrderDetails()
+  }, [])
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -120,8 +212,6 @@ export const ShoppingCartProvider = ({ children }) => {
         isCheckoutSideMenuOpen,
         openCheckoutSideMenu,
         closeCheckoutSideMenu,
-        order,
-        setOrder,
         items,
         setItems,
         searchByTitle,
@@ -130,6 +220,14 @@ export const ShoppingCartProvider = ({ children }) => {
         setFilteredItems,
         types,
         setTypes,
+        createAndSendOrder,
+        orderID,
+        openModal,
+        setOpenModal,
+        modalCheckout,
+        setModalCheckout,
+        orders,
+        orderDetails,
       }}
     >
       {children}

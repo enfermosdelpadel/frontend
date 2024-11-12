@@ -5,7 +5,7 @@ import OrdersCard from "../../Components/OrdersCard"
 import { ShoppingCartContext } from "../../Context"
 
 function MyOrders() {
-  const { order } = useContext(ShoppingCartContext)
+  const { orders } = useContext(ShoppingCartContext)
 
   return (
     <Layout>
@@ -13,12 +13,14 @@ function MyOrders() {
         <h1 className="font-medium text-xl">Mis Órdenes</h1>
       </div>
 
-      {order.map((order, index) => (
-        <Link key={index} to={`/my-orders/${index}`}>
+      {orders.map((order) => (
+        <Link key={order.id} to={`/my-orders/${order.id}`}>
           <OrdersCard
-            totalPrice={order.totalPrice}
-            totalProds={order.totalProds}
-            datePurchase={order.datePurchase}
+            index={order.id}
+            totalPrice={order.total}
+            totalProds={order.quantity}
+            datePurchase={order.order_date}
+            status={order.status}
           />
         </Link>
       ))}

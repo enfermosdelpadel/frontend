@@ -5,10 +5,19 @@ import Card from "../../Components/Card"
 import ProductDetail from "../../Components/ProductDetail"
 import { ShoppingCartContext } from "../../Context"
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
+import ReactModal from "react-modal"
+import { CardConfirm } from "../../Components/CardConfirm"
+import { Checkout } from "../../Components/Checkout"
 
 function Home() {
-  const { searchByTitle, filteredItems, setSearchByTitle, items } =
-    useContext(ShoppingCartContext)
+  const {
+    searchByTitle,
+    filteredItems,
+    setSearchByTitle,
+    items,
+    openModal,
+    modalCheckout,
+  } = useContext(ShoppingCartContext)
 
   const { type } = useParams()
 
@@ -62,6 +71,12 @@ function Home() {
       <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg p-6">
         {renderView()}
       </div>
+      <ReactModal className="modal" isOpen={openModal}>
+        <CardConfirm />
+      </ReactModal>
+      <ReactModal className="modal" isOpen={modalCheckout}>
+        <Checkout />
+      </ReactModal>
       <ProductDetail />
     </Layout>
   )
