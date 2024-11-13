@@ -36,10 +36,12 @@ const OrdersCard = (props) => {
             className={`${
               status === "Pendiente"
                 ? "bg-yellow-200"
-                : status === "En preparación"
-                ? "bg-orange-200"
+                : status === "Entregado"
+                ? "bg-blue-200"
                 : status === "Enviado"
                 ? "bg-green-200"
+                : status === "Cancelado"
+                ? "bg-red-200"
                 : "bg-gray-200"
             } px-2 py-1 rounded-full`}
           >
