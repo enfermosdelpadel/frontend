@@ -8,6 +8,7 @@ import { FaceFrownIcon } from "@heroicons/react/24/outline"
 import ReactModal from "react-modal"
 import { CardConfirm } from "../../Components/CardConfirm"
 import { Checkout } from "../../Components/Checkout"
+import { Carousel } from "../../Components/Carousel"
 
 function Home() {
   const {
@@ -59,14 +60,17 @@ function Home() {
 
   return (
     <Layout>
+      <Carousel />
       <div className="flex items-center justify-center relative w-80 mb-4"></div>
+      <div className="mt-2 max-w-screen-lg w-full h-16 ">
       <input
         id="search"
-        className="mt-8 w-80 border-2 border-slate-200 p-2 rounded-2xl sle focus:outline-none select-none"
+        className=" border-2 border-slate-200 p-2 rounded-2xl sle focus:outline-none select-none w-full h-full p-2"
         type="text"
         placeholder="Buscar productos"
         onChange={(event) => setSearchByTitle(event.target.value)}
       />
+      </div>
       {/* The cards renderize depends of items */}
       <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg p-6">
         {renderView()}
