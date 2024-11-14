@@ -67,7 +67,7 @@ function NavBar() {
           <li className="font-semibold text-lg">
             <NavLink to="/">
               <picture>
-                <img className="h-7 max-w-full" src="/EDP.png" alt="logo" />
+                <img className="h-10 max-w-full" src="/EDP.png" alt="logo" />
               </picture>
             </NavLink>
           </li>

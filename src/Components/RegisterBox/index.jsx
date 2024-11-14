@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
-function RegisterBox({ setRegisterModal }) {
-  const navigate = useNavigate()
+function RegisterBox({ setRegisterModal, setShowRegister }) {
+  // const navigate = useNavigate()
   const registerFlow = () => {
     setRegisterModal(false)
-    navigate("/")
+    setShowRegister(true)
   }
   return (
     <div
@@ -14,7 +14,7 @@ function RegisterBox({ setRegisterModal }) {
       <div className="flex flex-col items-center gap-4">
         <div className="text-center">
           <span className="font-bold text-2xl mb-2">
-            Gracias por registrarte en Enfermos Padel
+            Gracias por registrarte en Enfermos del Padel
           </span>
           <p className="mt-2 text-gray-600 pt-2">
             ¡Estás a solo un clic de ser parte de nosotros!

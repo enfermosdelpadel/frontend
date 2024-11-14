@@ -50,6 +50,8 @@ export const ShoppingCartProvider = ({ children }) => {
   const [isUserLogin, setIsUserLogin] = useState(false)
   const [userProfiles, setUserProfiles] = useState(null)
 
+  //Login
+
   useEffect(() => {
     const fetchProducts = async () => {
       const { data, error } = await supabase.rpc("get_product_stock")
@@ -218,6 +220,7 @@ export const ShoppingCartProvider = ({ children }) => {
           last_name: data.last_name,
           is_customer: true,
         }
+        console.log(profile)
         try {
           await supabase
             .from("profiles")
@@ -262,6 +265,7 @@ export const ShoppingCartProvider = ({ children }) => {
     })
   }, [])
 
+  //Profile
   const fetchProfiles = async (user) => {
     if (!user) return
     const { data, error } = await supabase
@@ -278,6 +282,18 @@ export const ShoppingCartProvider = ({ children }) => {
   useEffect(() => {
     fetchProfiles(user)
   }, [user])
+
+  const updateProfile = async (data) => {
+    const { error } = await supabase
+      .from("profiles")
+      .update(data)
+      .eq("id", user.id)
+    alert("Perfil Actualizado")
+    fetchProfiles(user)
+    if (error) {
+      throw error
+    }
+  }
 
   const logout = async () => {
     try {
@@ -332,6 +348,7 @@ export const ShoppingCartProvider = ({ children }) => {
         userProfiles,
         registerModal,
         setRegisterModal,
+        updateProfile,
       }}
     >
       {children}

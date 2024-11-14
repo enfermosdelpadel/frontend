@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/solid"
 
 const OrdersCard = (props) => {
-  const { totalPrice, totalProds, datePurchase, status, index } = props
+  const { totalPrice, totalProds, datePurchase, status } = props
 
   return (
     <article className="flex flex-col w-96 mb-5">
@@ -58,7 +58,6 @@ const OrdersCard = (props) => {
               useGrouping: true,
             })}
           </span>
-          {index}
         </div>
       </div>
     </article>
