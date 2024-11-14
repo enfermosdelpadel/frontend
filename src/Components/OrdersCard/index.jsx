@@ -31,7 +31,7 @@ const OrdersCard = (props) => {
         </div>
         <div className="flex gap-2 items-center mb-2">
           <TruckIcon className="h-6 w-6 text-black cursor-pointer" />
-          <p>Estado de la orden:</p>
+
           <span
             className={`${
               status === "Pendiente"

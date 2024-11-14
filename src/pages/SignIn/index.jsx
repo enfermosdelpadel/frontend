@@ -1,14 +1,19 @@
-import { Carousel } from "../../Components/Carousel"
 import Layout from "../../Components/Layout"
 import { Login } from "../../Components/Login"
 import { Register } from "../../Components/Register"
+import { useContext } from "react"
+import { ShoppingCartContext } from "../../Context"
 
 function SignIn() {
+  const { showRegister, setShowRegister } = useContext(ShoppingCartContext)
+
   return (
     <Layout>
-      {/* <Register />
-      <Login /> */}
-      <Carousel />
+      {!showRegister ? (
+        <Register setShowRegister={setShowRegister} />
+      ) : (
+        <Login setShowRegister={setShowRegister} />
+      )}
     </Layout>
   )
 }
