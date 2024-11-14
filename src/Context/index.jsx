@@ -42,6 +42,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const [openModal, setOpenModal] = useState(false)
   const [modalCheckout, setModalCheckout] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
+  const [registerModal, setRegisterModal] = useState(false)
 
   //Users
   const [showRegister, setShowRegister] = useState(false)
@@ -329,6 +330,8 @@ export const ShoppingCartProvider = ({ children }) => {
         setLogoutModal,
         logoutModal,
         userProfiles,
+        registerModal,
+        setRegisterModal,
       }}
     >
       {children}

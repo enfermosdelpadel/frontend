@@ -21,12 +21,12 @@ function LogoutBox({ logout, setLogoutModal }) {
           <div className="mt-4 pl-9 flex gap-2">
             <a
               onClick={() => logoutSession()}
-              className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-indigo-700 cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700 cursor-pointer"
             >
               <span className="text-sm"> Si </span>
             </a>
 
-            <a className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-white hover:bg-indigo-700 cursor-pointer">
+            <a className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-white hover:bg-green-700 cursor-pointer">
               <span onClick={() => setLogoutModal(false)} className="text-sm">
                 Volver
               </span>

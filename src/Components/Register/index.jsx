@@ -1,21 +1,25 @@
 import { useForm } from "react-hook-form"
 import { useContext } from "react"
 import { ShoppingCartContext } from "../../Context/index"
+import ReactModal from "react-modal"
+import { RegisterBox } from "../RegisterBox"
 
 function Register({ setShowRegister }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm()
-  const { addUser } = useContext(ShoppingCartContext)
+  const { addUser, registerModal, setRegisterModal } =
+    useContext(ShoppingCartContext)
   const onSubmit = (data) => {
     addUser(data)
     console.log(data)
   }
   return (
     <section className="bg-white mt-8">
-      <div className="lg:grid lg:min-h-lg lg:grid-cols-12">
+      <div className="flex flex-col lg:grid lg:min-h-lg lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt=""
@@ -50,7 +54,9 @@ function Register({ setShowRegister }) {
                 Bienvenidos a EDP
               </h1>
             </div>
-
+            <h2 className="text-2xl font-medium text-gray-900">
+              Ingresa tus datos para completar el registro
+            </h2>
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="mt-8 grid grid-cols-6 gap-6"
@@ -147,11 +153,26 @@ function Register({ setShowRegister }) {
                 </label>
 
                 <input
+                  {...register("password_confirmation", {
+                    required: true,
+                    validate: (value) => {
+                      if (value == watch("password")) {
+                        return true
+                      } else {
+                        return "Las contraseñas no coinciden"
+                      }
+                    },
+                  })}
                   type="password"
                   id="PasswordConfirmation"
                   name="password_confirmation"
                   className="input_signin"
                 />
+                {errors.password_confirmation && (
+                  <span className="span-error">
+                    {errors.password_confirmation.message}
+                  </span>
+                )}
               </div>
 
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
@@ -171,9 +192,13 @@ function Register({ setShowRegister }) {
                 </p>
               </div>
             </form>
+            <pre>{JSON.stringify(watch(), null, 2)}</pre>
           </div>
         </main>
       </div>
+      <ReactModal className="modal" isOpen={registerModal}>
+        <RegisterBox setRegisterModal={setRegisterModal} />
+      </ReactModal>
     </section>
   )
 }
