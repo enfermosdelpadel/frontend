@@ -4,13 +4,14 @@ import { ShoppingCartContext } from "../../Context/index"
 import { useNavigate } from "react-router-dom"
 
 function Login({ setShowRegister }) {
+  const { loginUser } = useContext(ShoppingCartContext)
   const navigate = useNavigate()
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm()
-  const { loginUser } = useContext(ShoppingCartContext)
+
   const onSubmit = (data) => {
     loginUser(data)
       .then(() => {
@@ -20,13 +21,14 @@ function Login({ setShowRegister }) {
         console.log(error)
       })
   }
+
   return (
     <section className="bg-white mt-8">
       <div className="lg:grid lg:min-h-lg lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt=""
-            src="https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/public/utils/fondo-padel-login.jpg?t=2024-11-13T12%3A52%3A12.900Z"
+            src="https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/public/utils/edp-court.jpeg?t=2024-11-14T19%3A47%3A54.166Z"
             className="absolute inset-0 h-full w-full object-cover opacity-80"
           />
 
@@ -72,7 +74,10 @@ function Login({ setShowRegister }) {
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Correo Electronico
+                  Correo Electronico{" "}
+                  {errors.email && (
+                    <span className="text-red-600">Campo requerido</span>
+                  )}
                 </label>
 
                 <input
@@ -82,9 +87,6 @@ function Login({ setShowRegister }) {
                   name="email"
                   className="input_signin"
                 />
-                {errors.email && (
-                  <span className="text-red-600">El correo es requerido</span>
-                )}
               </div>
 
               <div className="col-span-6">
@@ -92,9 +94,11 @@ function Login({ setShowRegister }) {
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Contraseña
+                  Contraseña{" "}
+                  {errors.password && (
+                    <span className="text-red-600">Campo requerido</span>
+                  )}
                 </label>
-
                 <input
                   {...register("password", { required: true })}
                   type="password"
@@ -102,11 +106,6 @@ function Login({ setShowRegister }) {
                   name="password"
                   className="input_signin"
                 />
-                {errors.password && (
-                  <span className="text-red-600">
-                    La contraseña es requerida
-                  </span>
-                )}
               </div>
 
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
@@ -118,7 +117,6 @@ function Login({ setShowRegister }) {
                   No tienes una cuenta?{" "}
                   <a
                     onClick={() => {
-                      console.log("Se hizo clic en el enlace")
                       setShowRegister(false)
                     }}
                     className="text-gray-700 underline cursor-pointer"

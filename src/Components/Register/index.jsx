@@ -15,6 +15,7 @@ function Register({ setShowRegister }) {
     useContext(ShoppingCartContext)
   const onSubmit = (data) => {
     addUser(data)
+    setRegisterModal(true)
     console.log(data)
   }
   return (
@@ -23,7 +24,7 @@ function Register({ setShowRegister }) {
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt=""
-            src="https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/public/utils/fondo-padel-login.jpg?t=2024-11-13T12%3A52%3A12.900Z"
+            src="https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/public/utils/edp-hat.jpeg?t=2024-11-14T19%3A48%3A37.607Z"
             className="absolute inset-0 h-full w-full object-cover opacity-80"
           />
 
@@ -66,7 +67,10 @@ function Register({ setShowRegister }) {
                   htmlFor="first_name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Nombres
+                  Nombres{" "}
+                  {errors.first_name && (
+                    <span className="span-error">Campo requerido</span>
+                  )}
                 </label>
 
                 <input
@@ -77,9 +81,6 @@ function Register({ setShowRegister }) {
                   className="input_signin"
                   autoComplete="off"
                 />
-                {errors.first_name && (
-                  <span className="span-error">Este campo es requerido</span>
-                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -87,7 +88,10 @@ function Register({ setShowRegister }) {
                   htmlFor="last_name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Apellido
+                  Apellido{" "}
+                  {errors.last_name && (
+                    <span className="span-error">Campo requerido</span>
+                  )}
                 </label>
 
                 <input
@@ -98,9 +102,6 @@ function Register({ setShowRegister }) {
                   className="input_signin"
                   autoComplete="off"
                 />
-                {errors.last_name && (
-                  <span className="span-error">Este campo es requerido</span>
-                )}
               </div>
 
               <div className="col-span-6">
@@ -108,7 +109,10 @@ function Register({ setShowRegister }) {
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Correo Electrónico
+                  Correo Electrónico {""}
+                  {errors.email && (
+                    <span className="span-error">Campo requerido</span>
+                  )}
                 </label>
 
                 <input
@@ -119,9 +123,6 @@ function Register({ setShowRegister }) {
                   className="input_signin"
                   autoComplete="off"
                 />
-                {errors.email && (
-                  <span className="span-error">Este campo es requerido</span>
-                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -129,7 +130,10 @@ function Register({ setShowRegister }) {
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Contraseña
+                  Contraseña{" "}
+                  {errors.password && (
+                    <span className="span-error">Campo requerido</span>
+                  )}
                 </label>
 
                 <input
@@ -139,9 +143,6 @@ function Register({ setShowRegister }) {
                   name="password"
                   className="input_signin"
                 />
-                {errors.password && (
-                  <span className="span-error">Este campo es requerido</span>
-                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -149,7 +150,12 @@ function Register({ setShowRegister }) {
                   htmlFor="PasswordConfirmation"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Confirmar Contraseña
+                  Confirmar Contraseña{" "}
+                  {errors.password_confirmation && (
+                    <span className="span-error">
+                      {errors.password_confirmation.message}
+                    </span>
+                  )}
                 </label>
 
                 <input
@@ -168,11 +174,6 @@ function Register({ setShowRegister }) {
                   name="password_confirmation"
                   className="input_signin"
                 />
-                {errors.password_confirmation && (
-                  <span className="span-error">
-                    {errors.password_confirmation.message}
-                  </span>
-                )}
               </div>
 
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
@@ -197,7 +198,10 @@ function Register({ setShowRegister }) {
         </main>
       </div>
       <ReactModal className="modal" isOpen={registerModal}>
-        <RegisterBox setRegisterModal={setRegisterModal} />
+        <RegisterBox
+          setRegisterModal={setRegisterModal}
+          setShowRegister={setShowRegister}
+        />
       </ReactModal>
     </section>
   )

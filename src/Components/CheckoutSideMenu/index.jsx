@@ -18,6 +18,7 @@ const CheckoutSideMenu = () => {
     setModalCheckout,
     createAndSendOrder,
     isUserLogin,
+    profile,
   } = useContext(ShoppingCartContext)
 
   const handleDelete = (id) => {
@@ -39,14 +40,26 @@ const CheckoutSideMenu = () => {
   const renderButton = () => {
     if (cartProds.length > 0) {
       if (isUserLogin) {
-        return (
-          <button
-            className="w-full bg-green-600 py-3 text-white rounded-lg"
-            onClick={() => ShoppingCart()}
-          >
-            Finalizar compra
-          </button>
-        )
+        if (profile?.[0].address !== null) {
+          return (
+            <button
+              className="w-full bg-green-600 py-3 text-white rounded-lg"
+              onClick={() => ShoppingCart()}
+            >
+              Finalizar compra
+            </button>
+          )
+        } else {
+          return (
+            <button
+              className="w-full bg-orange-600 py-3 text-white rounded-lg"
+              onClick={() => (window.location.href = "/my-account")}
+            >
+              <ExclamationCircleIcon className="h-6 w-6 inline-block mr-2" />
+              Debes Completar tu perfil!
+            </button>
+          )
+        }
       } else {
         return (
           <button
