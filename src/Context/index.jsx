@@ -41,6 +41,14 @@ export const ShoppingCartProvider = ({ children }) => {
   //Modals
   const [openModal, setOpenModal] = useState(false)
   const [modalCheckout, setModalCheckout] = useState(false)
+  const [logoutModal, setLogoutModal] = useState(false)
+  const [registerModal, setRegisterModal] = useState(false)
+
+  //Users
+  const [showRegister, setShowRegister] = useState(false)
+  const [user, setUser] = useState(null)
+  const [isUserLogin, setIsUserLogin] = useState(false)
+  const [userProfiles, setUserProfiles] = useState(null)
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -128,7 +136,7 @@ export const ShoppingCartProvider = ({ children }) => {
       .insert([
         {
           order_number: generateOrderNumber(1),
-          customer_id: 1,
+          profile_id: user.id,
           order_date: new Date(),
           total: totalPrice,
           quantity: totalProds,
@@ -171,7 +179,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const fetchOrders = async () => {
     const { data, error } = await supabase
       .from("orders")
-      .select("*,customers(*)")
+      .select("*,profiles(*)")
     if (error) {
       throw error
     }
@@ -189,13 +197,97 @@ export const ShoppingCartProvider = ({ children }) => {
     if (error) {
       throw error
     }
-    console.log(data)
     setOrderDetails(data)
   }
 
   useEffect(() => {
     fetchOrderDetails()
   }, [])
+
+  const addUser = async (data) => {
+    const result = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+    })
+    try {
+      if (result.data.user) {
+        const user = result.data.user
+        const profile = {
+          id: user.id,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          is_customer: true,
+        }
+        try {
+          await supabase
+            .from("profiles")
+            .upsert(profile, { onConflict: ["id"] })
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const loginUser = async (data) => {
+    const result = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    })
+    fetchUser()
+    if (result.error) {
+      alert(`Error en el Logueo: ${result.error.message}`)
+    }
+  }
+
+  const fetchUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    setUser(user)
+  }
+  useEffect(() => {
+    fetchUser()
+  }, [])
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (!session) {
+        setIsUserLogin(false)
+      } else {
+        setIsUserLogin(true)
+      }
+    })
+  }, [])
+
+  const fetchProfiles = async (user) => {
+    if (!user) return
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+    if (error) {
+      throw error
+    } else {
+      setUserProfiles(data)
+    }
+  }
+
+  useEffect(() => {
+    fetchProfiles(user)
+  }, [user])
+
+  const logout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut()
+      setUser(null)
+      if (error) throw error
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <ShoppingCartContext.Provider
@@ -228,6 +320,18 @@ export const ShoppingCartProvider = ({ children }) => {
         setModalCheckout,
         orders,
         orderDetails,
+        showRegister,
+        setShowRegister,
+        addUser,
+        loginUser,
+        isUserLogin,
+        user,
+        logout,
+        setLogoutModal,
+        logoutModal,
+        userProfiles,
+        registerModal,
+        setRegisterModal,
       }}
     >
       {children}

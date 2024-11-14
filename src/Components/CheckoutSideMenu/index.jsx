@@ -1,5 +1,9 @@
 import { useContext } from "react"
-import { XMarkIcon, ExclamationCircleIcon } from "@heroicons/react/24/solid"
+import {
+  XMarkIcon,
+  ExclamationCircleIcon,
+  ArrowRightStartOnRectangleIcon,
+} from "@heroicons/react/24/solid"
 import { ShoppingCartContext } from "../../Context"
 import OrderCard from "../../Components/OrderCard"
 import { totalPrice } from "../../utils"
@@ -13,6 +17,7 @@ const CheckoutSideMenu = () => {
     isCheckoutSideMenuOpen,
     setModalCheckout,
     createAndSendOrder,
+    isUserLogin,
   } = useContext(ShoppingCartContext)
 
   const handleDelete = (id) => {
@@ -33,19 +38,31 @@ const CheckoutSideMenu = () => {
 
   const renderButton = () => {
     if (cartProds.length > 0) {
-      return (
-        <button
-          className="w-full bg-green-600 py-3 text-white rounded-lg"
-          onClick={() => ShoppingCart()}
-        >
-          Finalizar compra
-        </button>
-      )
+      if (isUserLogin) {
+        return (
+          <button
+            className="w-full bg-green-600 py-3 text-white rounded-lg"
+            onClick={() => ShoppingCart()}
+          >
+            Finalizar compra
+          </button>
+        )
+      } else {
+        return (
+          <button
+            className="w-full bg-cyan-600 py-3 text-white rounded-lg"
+            onClick={() => (window.location.href = "/sign-in")}
+          >
+            <ArrowRightStartOnRectangleIcon className="h-6 w-6 inline-block mr-2" />
+            Debes iniciar sesión o registrarte
+          </button>
+        )
+      }
     } else {
       return (
         <button className="w-full bg-gray-600 py-3 text-white rounded-lg">
           <ExclamationCircleIcon className="h-6 w-6 inline-block mr-2" />
-          El carrito de compras está vacío.
+          El carrito de compras est vacío.
         </button>
       )
     }
