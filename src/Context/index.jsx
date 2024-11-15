@@ -177,20 +177,19 @@ export const ShoppingCartProvider = ({ children }) => {
     console.log("Detalles del pedido agregados:", detailData)
     return detailData
   }
-
-  const fetchOrders = async () => {
-    const { data, error } = await supabase
-      .from("orders")
-      .select("*,profiles(*)")
-    if (error) {
-      throw error
-    }
-    setOrders(data)
-  }
-
   useEffect(() => {
+    const fetchOrders = async () => {
+      const { data, error } = await supabase
+        .from("orders")
+        .select("*,profiles(*)")
+        .eq("profile_id", user?.id)
+      if (error) {
+        throw error
+      }
+      setOrders(data)
+    }
     fetchOrders()
-  }, [])
+  }, [user])
 
   const fetchOrderDetails = async () => {
     const { data, error } = await supabase
