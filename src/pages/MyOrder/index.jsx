@@ -4,7 +4,6 @@ import Layout from "../../Components/Layout"
 import OrderCard from "../../Components/OrderCard"
 import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import { Link } from "react-router-dom"
-// import { totalPrice } from "../../utils"
 
 function MyOrder() {
   const { orderDetails } = useContext(ShoppingCartContext)
@@ -13,7 +12,7 @@ function MyOrder() {
 
   return (
     <Layout>
-      <div className="flex w-80 relative justify-center items-center mb-5">
+      <div className="flex w-80 relative justify-center items-center mb-5 pt-8">
         <Link to="/my-orders" className="absolute left-0">
           <ChevronLeftIcon className="h-6 w-6 text-black cursor-pointer" />
         </Link>
