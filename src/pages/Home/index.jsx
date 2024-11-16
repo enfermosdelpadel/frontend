@@ -9,6 +9,7 @@ import ReactModal from "react-modal"
 import { CardConfirm } from "../../Components/CardConfirm"
 import { Checkout } from "../../Components/Checkout"
 import { Carousel } from "../../Components/Carousel"
+import { Footer } from "../../Components/Footer"
 
 function Home() {
   const {
@@ -82,6 +83,7 @@ function Home() {
         <Checkout />
       </ReactModal>
       <ProductDetail />
+      <Footer />
     </Layout>
   )
 }

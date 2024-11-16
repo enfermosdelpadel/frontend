@@ -1,4 +1,8 @@
-import { CheckIcon, ShoppingCartIcon } from "@heroicons/react/24/solid"
+import {
+  CheckIcon,
+  ShoppingCartIcon,
+  TruckIcon,
+} from "@heroicons/react/24/solid"
 import { useContext } from "react"
 import { ShoppingCartContext } from "../../Context"
 
@@ -57,11 +61,20 @@ const Card = (data) => {
       className="bg-white backdrop-blur border-white-30 shadow-md cursor-pointer w-56 h-72 flex flex-col justify-center rounded-xl select-none"
       onClick={() => showProduct(data.data)}
     >
+      {data.data.price > 300000 && (
+        <div className="absolute top-0 right-0 left-0 flex m-2  py-0.5 z-10 ">
+          <div className="flex items-center bg-blue-600 rounded-lg mr-2 py-0.5 px-2 ">
+            <TruckIcon className="h-5 w-5 text-white cursor-pointer " />
+            <span className="text-white text-xs ">Gratis</span>
+          </div>
+        </div>
+      )}
       <figure className="relative shrink-0 overflow-hidden h-3/4 mb-6 mx-auto w-4/5 rounded-3xl mb-2">
         <span className="absolute bottom-0 left-0 bg-gray-200 rounded-lg text-black text-xs m-2 px-3 py-0.5">
           {/* El ? después de category ayuda a que renderice de igual forma el sitio */}
           {data.data.type}
         </span>
+
         <img
           className="w-full h-full object-contain rounded-lg"
           src={data.data.image}
