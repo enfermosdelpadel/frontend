@@ -67,21 +67,23 @@ const ProductDetail = () => {
                 {prodToShow.model}
               </dd>
             </div>
-            <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm font-medium leading-6 text-gray-900">
-                Colores
-              </dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                {prodToShow.color?.map((color) => (
-                  <span
-                    key={color}
-                    className="inline-block bg-blue-100 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                  >
-                    {color}
-                  </span>
-                ))}
-              </dd>
-            </div>
+            {prodToShow.type !== "Paleta" && (
+              <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Color
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {prodToShow.color?.map((color) => (
+                    <span
+                      key={color}
+                      className="inline-block bg-blue-100 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                    >
+                      {color}
+                    </span>
+                  ))}
+                </dd>
+              </div>
+            )}
             <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
               <dt className="text-sm font-medium leading-6 text-gray-900">
                 Genero
