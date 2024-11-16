@@ -17,7 +17,7 @@ function RegisterBox({ setRegisterModal, setShowRegister }) {
             Gracias por registrarte en Enfermos del Padel
           </span>
           <p className="mt-2 text-gray-600 pt-2">
-            ¡Estás a solo un clic de ser parte de nosotros!
+            ¡Estás a solo un click de ser parte de nosotros!
           </p>
           <p className="mt-2 text-gray-600">
             Revisa tu bandeja de entrada, encontrarás un correo para validar tu
