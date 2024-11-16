@@ -45,7 +45,7 @@ const OrdersCard = (props) => {
                 : "bg-gray-200"
             } px-2 py-1 rounded-full`}
           >
-            {status}
+            {status === "Enviado" ? "En Camino" : status}
           </span>
         </div>
         <div className="flex gap-2 items-center">
