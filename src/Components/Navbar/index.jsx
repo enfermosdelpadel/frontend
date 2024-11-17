@@ -28,7 +28,7 @@ function NavBar() {
         { to: "/my-orders", text: "Mis Órdenes" },
         { to: "/my-account", text: "Mi cuenta" },
       ]
-    : [{ to: "/sign-in", text: "Identificase" }]
+    : [{ to: "/sign-in", text: "Identificarse" }]
 
   // Create an array of objects with the types name.
   // That array held the data for the left side of the navbar links.

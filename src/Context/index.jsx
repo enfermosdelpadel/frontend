@@ -127,8 +127,10 @@ export const ShoppingCartProvider = ({ children }) => {
     const month = ("0" + (date.getMonth() + 1)).slice(-2)
     const day = ("0" + date.getDate()).slice(-2)
     const hour = ("0" + date.getHours()).slice(-2)
+    const minute = ("0" + date.getMinutes()).slice(-2)
+    const customer = customer_id.slice(-5)
 
-    const orderNumber = `00000-${hour}${year}${month}${day}-${customer_id}`
+    const orderNumber = `00000-${hour}${year}${month}${day}${minute}-${customer}`
     return orderNumber
   }
 
@@ -137,7 +139,7 @@ export const ShoppingCartProvider = ({ children }) => {
       .from("orders")
       .insert([
         {
-          order_number: generateOrderNumber(1),
+          order_number: generateOrderNumber(user.id),
           profile_id: user.id,
           order_date: new Date(),
           total: totalPrice,
