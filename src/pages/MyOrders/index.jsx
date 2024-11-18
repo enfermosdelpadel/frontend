@@ -3,9 +3,10 @@ import { Link } from "react-router-dom"
 import Layout from "../../Components/Layout"
 import OrdersCard from "../../Components/OrdersCard"
 import { ShoppingCartContext } from "../../Context"
+import Spinner from "../../Components/Spinner"
 
 function MyOrders() {
-  const { orders } = useContext(ShoppingCartContext)
+  const { orders, loading } = useContext(ShoppingCartContext)
 
   return (
     <Layout>
@@ -25,6 +26,7 @@ function MyOrders() {
           </Link>
         ))}
       </div>
+      <Spinner loading={loading} />
     </Layout>
   )
 }

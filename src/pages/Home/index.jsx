@@ -10,6 +10,7 @@ import { CardConfirm } from "../../Components/CardConfirm"
 import { Checkout } from "../../Components/Checkout"
 import { Carousel } from "../../Components/Carousel"
 import { Footer } from "../../Components/Footer"
+import Spinner from "../../Components/Spinner"
 
 function Home() {
   const {
@@ -20,6 +21,7 @@ function Home() {
     openModal,
     modalCheckout,
     setModalCheckout,
+    loading,
   } = useContext(ShoppingCartContext)
 
   const { type } = useParams()
@@ -84,6 +86,7 @@ function Home() {
         <Checkout setModalCheckout={setModalCheckout} />
       </ReactModal>
       <ProductDetail />
+      <Spinner loading={loading} />
       <Footer />
     </Layout>
   )

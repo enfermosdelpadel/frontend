@@ -70,7 +70,7 @@ function NavBar() {
                 <img
                   className="h-9
                    max-w-full"
-                  src="src/Assets/images/logo_nav.svg"
+                  src="/logo_nav.svg"
                   alt="logo"
                 />
               </picture>

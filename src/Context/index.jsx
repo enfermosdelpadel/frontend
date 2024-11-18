@@ -51,6 +51,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const [userProfiles, setUserProfiles] = useState(null)
 
   //Login
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -108,10 +109,10 @@ export const ShoppingCartProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if (searchByTitle)
+    if (searchByTitle) {
       setFilteredItems(filteredItemsByTitle(items, searchByTitle))
+    }
   }, [items, searchByTitle])
-
   //filter by catetories
   useEffect(() => {
     if (items) {
@@ -154,8 +155,6 @@ export const ShoppingCartProvider = ({ children }) => {
       alert("Error al crear el pedido", orderError)
       return null
     }
-
-    console.log("Nuevo ID de pedido:", orderData[0].id)
     setOrderID(orderData[0].id)
 
     const { error: detailError, data: detailData } = await supabase
@@ -350,6 +349,8 @@ export const ShoppingCartProvider = ({ children }) => {
         registerModal,
         setRegisterModal,
         updateProfile,
+        loading,
+        setLoading,
       }}
     >
       {children}
