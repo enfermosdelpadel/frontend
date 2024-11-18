@@ -19,6 +19,7 @@ function Home() {
     items,
     openModal,
     modalCheckout,
+    setModalCheckout,
   } = useContext(ShoppingCartContext)
 
   const { type } = useParams()
@@ -80,7 +81,7 @@ function Home() {
         <CardConfirm />
       </ReactModal>
       <ReactModal className="modal" isOpen={modalCheckout}>
-        <Checkout />
+        <Checkout setModalCheckout={setModalCheckout} />
       </ReactModal>
       <ProductDetail />
       <Footer />
