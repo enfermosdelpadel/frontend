@@ -19,6 +19,8 @@ const CheckoutSideMenu = () => {
     createAndSendOrder,
     isUserLogin,
     profile,
+    sendEmail,
+    userEmail,
   } = useContext(ShoppingCartContext)
 
   const handleDelete = (id) => {
@@ -30,10 +32,24 @@ const CheckoutSideMenu = () => {
     (acc, product) => acc + product.quantity,
     0
   )
+  //Checkout Mail
+  const handleCheckout = () => {
+    const msg =
+      "<br/> <b>Gracias por tu compra! </b><br/> <br/> Puedes realizar el pago al siguiente número de cuenta:<br/> CBU: 212453125533432 </br/> Alias: edp.mp<br/></br/> EDP"
+
+    const infoMail = {
+      to: userEmail,
+      subject: "Pedido realizado con exito",
+      html: msg,
+    }
+    sendEmail(infoMail)
+    setModalCheckout(false)
+  }
 
   const ShoppingCart = () => {
     createAndSendOrder(totalPrice(cartProds), totalProds, cartProds)
     closeCheckoutSideMenu()
+    handleCheckout()
     setModalCheckout(true)
   }
 

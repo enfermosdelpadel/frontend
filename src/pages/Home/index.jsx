@@ -20,7 +20,6 @@ function Home() {
     items,
     openModal,
     modalCheckout,
-    setModalCheckout,
     loading,
   } = useContext(ShoppingCartContext)
 
@@ -83,7 +82,7 @@ function Home() {
         <CardConfirm />
       </ReactModal>
       <ReactModal className="modal" isOpen={modalCheckout}>
-        <Checkout setModalCheckout={setModalCheckout} />
+        <Checkout />
       </ReactModal>
       <ProductDetail />
       <Spinner loading={loading} />

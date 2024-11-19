@@ -305,6 +305,22 @@ export const ShoppingCartProvider = ({ children }) => {
     }
   }
 
+  const sendEmail = async (data) => {
+    const response = await fetch(
+      "https://fastapi-resend.onrender.com/send_mail",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`)
+    }
+  }
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -351,6 +367,7 @@ export const ShoppingCartProvider = ({ children }) => {
         updateProfile,
         loading,
         setLoading,
+        sendEmail,
       }}
     >
       {children}

@@ -1,7 +1,6 @@
 import SyncLoader from "react-spinners/SyncLoader"
 
 function Spinner({ loading }) {
-  console.log(loading)
   return (
     <div className="sweet-loading">
       <SyncLoader color="rgba(5, 4, 4, 1)" loading={loading} width={20} />

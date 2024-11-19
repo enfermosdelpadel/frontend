@@ -9,6 +9,7 @@ import MyOrders from "../MyOrders"
 import SignIn from "../SignIn"
 import NotFound from "../NotFound"
 import CheckoutSideMenu from "../../Components/CheckoutSideMenu"
+import { AboutUs } from "../AboutUs"
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -21,6 +22,7 @@ const AppRoutes = () => {
     { path: "/my-orders/:id", element: <MyOrder /> },
     { path: "*", element: <NotFound /> },
     { path: "/sign-in", element: <SignIn /> },
+    { path: "/about-us", element: <AboutUs /> },
   ])
   return routes
 }
