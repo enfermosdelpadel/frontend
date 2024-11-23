@@ -286,7 +286,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const updateProfile = async (data) => {
     const { error } = await supabase
       .from("profiles")
-      .update(data)
+      .insert(data)
       .eq("id", user.id)
     alert("Perfil Actualizado")
     fetchProfiles(user)
@@ -306,16 +306,13 @@ export const ShoppingCartProvider = ({ children }) => {
   }
 
   const sendEmail = async (data) => {
-    const response = await fetch(
-      "https://fastapi-resend.onrender.com/send_mail",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    )
+    const response = await fetch("http://127.0.0.1:8000/send_mail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`)
     }

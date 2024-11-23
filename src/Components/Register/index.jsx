@@ -69,12 +69,21 @@ function Register({ setShowRegister }) {
                 >
                   Nombres{" "}
                   {errors.first_name && (
-                    <span className="span-error">Campo requerido</span>
+                    <span className="span-error">
+                      {errors.first_name.message}
+                    </span>
                   )}
                 </label>
 
                 <input
-                  {...register("first_name", { required: true })}
+                  {...register("first_name", {
+                    required: "Campo requerido",
+                    minLength: 3,
+                    pattern: {
+                      value: /^\S+/,
+                      message: "Ingrese un valor valido",
+                    },
+                  })}
                   type="text"
                   id="first_name"
                   name="first_name"
@@ -90,12 +99,21 @@ function Register({ setShowRegister }) {
                 >
                   Apellido{" "}
                   {errors.last_name && (
-                    <span className="span-error">Campo requerido</span>
+                    <span className="span-error">
+                      {errors.last_name.message}
+                    </span>
                   )}
                 </label>
 
                 <input
-                  {...register("last_name", { required: true })}
+                  {...register("last_name", {
+                    required: "Campo requerido",
+                    minLength: 3,
+                    pattern: {
+                      value: /^\S+/,
+                      message: "Ingrese un valor valido",
+                    },
+                  })}
                   type="text"
                   id="last_name"
                   name="last_name"
@@ -132,12 +150,20 @@ function Register({ setShowRegister }) {
                 >
                   Contraseña{" "}
                   {errors.password && (
-                    <span className="span-error">Campo requerido</span>
+                    <span className="span-error">
+                      {errors.password.message}
+                    </span>
                   )}
                 </label>
 
                 <input
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: "Campo requerido",
+                    minLength: {
+                      value: 6,
+                      message: "Mínimo 6 caracteres",
+                    },
+                  })}
                   type="password"
                   id="password"
                   name="password"
