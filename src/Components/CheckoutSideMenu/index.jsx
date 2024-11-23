@@ -20,7 +20,7 @@ const CheckoutSideMenu = () => {
     isUserLogin,
     profile,
     sendEmail,
-    userEmail,
+    user,
   } = useContext(ShoppingCartContext)
 
   const handleDelete = (id) => {
@@ -33,15 +33,17 @@ const CheckoutSideMenu = () => {
     0
   )
   //Checkout Mail
-  const handleCheckout = () => {
-    const msg =
-      "<br/> <b>Gracias por tu compra! </b><br/> <br/> Puedes realizar el pago al siguiente número de cuenta:<br/> CBU: 212453125533432 </br/> Alias: edp.mp<br/></br/> EDP"
+  const msg =
+    "<br/> <b>Gracias por tu compra! </b><br/> <br/> Puedes realizar el pago al siguiente número de cuenta:<br/> CBU: 212453125533432 </br/> Alias: edp.mp<br/></br/> EDP"
 
-    const infoMail = {
-      to: userEmail,
-      subject: "Pedido realizado con exito",
-      html: msg,
-    }
+  const infoMail = {
+    to: user?.email,
+    subject: "Pedido realizado con exito",
+    html: msg,
+  }
+  const handleCheckout = () => {
+    console.log(infoMail)
+    console.log("Me registre Clarise")
     sendEmail(infoMail)
     setModalCheckout(false)
   }
