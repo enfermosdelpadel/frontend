@@ -16,7 +16,6 @@ function Register({ setShowRegister }) {
   const onSubmit = (data) => {
     addUser(data)
     setRegisterModal(true)
-    console.log(data)
   }
   return (
     <section className="bg-white mt-8">
@@ -31,7 +30,6 @@ function Register({ setShowRegister }) {
           <div className="hidden lg:relative lg:block lg:p-12">
             <a className="block text-white" href="#">
               <span className="sr-only">Home</span>
-              <img className="h-12" src="./public/EDP.png" alt="" />
             </a>
 
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
@@ -48,7 +46,6 @@ function Register({ setShowRegister }) {
                 href="#"
               >
                 <span className="sr-only">Home</span>
-                <img className="h-12" src="./public/EDP.png" alt="" />
               </a>
 
               <h1 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">

@@ -42,8 +42,6 @@ const CheckoutSideMenu = () => {
     html: msg,
   }
   const handleCheckout = () => {
-    console.log(infoMail)
-    console.log("Me registre Clarise")
     sendEmail(infoMail)
     setModalCheckout(false)
   }
@@ -93,7 +91,7 @@ const CheckoutSideMenu = () => {
       return (
         <button className="w-full bg-gray-600 py-3 text-white rounded-lg">
           <ExclamationCircleIcon className="h-6 w-6 inline-block mr-2" />
-          El carrito de compras est vacío.
+          El carrito de compras está vacío.
         </button>
       )
     }
