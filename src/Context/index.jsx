@@ -220,7 +220,6 @@ export const ShoppingCartProvider = ({ children }) => {
           last_name: data.last_name,
           is_customer: true,
         }
-        console.log(profile)
         try {
           await supabase
             .from("profiles")
@@ -321,6 +320,16 @@ export const ShoppingCartProvider = ({ children }) => {
     }
   }
 
+  const cancelOrder = async (id) => {
+    const { error } = await supabase
+      .from("orders")
+      .update({ status: "Cancelado" })
+      .eq("id", id)
+    if (error) {
+      throw error
+    }
+  }
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -368,6 +377,7 @@ export const ShoppingCartProvider = ({ children }) => {
         loading,
         setLoading,
         sendEmail,
+        cancelOrder,
       }}
     >
       {children}

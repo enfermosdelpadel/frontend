@@ -2,9 +2,9 @@ import { useState, useEffect } from "react"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid"
 
 const images = [
-  "https://media.istockphoto.com/id/1080225792/es/foto/juego-de-padel-de-sportsman.jpg?s=1024x1024&w=is&k=20&c=BtSsccsl3vtojLvGjIeI0nJKVxfI_J9_iqZG0YSI-kI=",
-  "https://media.istockphoto.com/id/1995857598/es/foto/padel-blue-net-court-tennis.jpg?s=1024x1024&w=is&k=20&c=Ghldp5gtB6igRrBdfZ1Vh2AszGyKOqX0kwHfFcEafrc=",
-  "https://media.istockphoto.com/id/1451156981/es/foto/tenista-femenina-jugando-al-p%C3%A1del.jpg?s=1024x1024&w=is&k=20&c=5NlzoV30Ly-0Gq29P1hoo8a9vp0-7LgGL8X5K7h2xpw=",
+  "https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/public/utils/carusel-01.png?t=2024-11-24T23%3A17%3A37.345Z",
+  "https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/public/utils/carusel-02.png?t=2024-11-24T23%3A17%3A48.610Z",
+  "https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/public/utils/carusel-03.png?t=2024-11-24T23%3A17%3A57.254Z",
 ]
 
 const autoSlide = true
