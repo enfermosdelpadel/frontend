@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { Toaster } from "react-hot-toast"
 import {
   TruckIcon,
   CalendarIcon,
@@ -7,15 +8,24 @@ import {
 } from "@heroicons/react/24/solid"
 
 const OrdersCard = (props) => {
-  const { index, totalPrice, totalProds, datePurchase, status, orderNumber } =
-    props
+  const {
+    index,
+    totalPrice,
+    totalProds,
+    datePurchase,
+    status,
+    orderNumber,
+    cancelOrder,
+  } = props
 
   const handleCancel = (id) => {
+    cancelOrder(id)
     console.log(id)
   }
 
   return (
     <article className="flex flex-col w-full mb-5 h-40">
+      <Toaster gutter={30} duration={4000} position="bottom-center" />
       <div className="bg-white border w-full">
         <div className="bg-gray-200 px-4 py-2 flex justify-between">
           <div className="flex gap-2">
@@ -79,7 +89,10 @@ const OrdersCard = (props) => {
           </Link>
           <button
             onClick={() => handleCancel(index)}
-            className="bg-red-600 text-white p-2 rounded-lg"
+            disabled={status !== "Pendiente"}
+            className={`bg-red-600 text-white p-2 rounded-lg ${
+              status !== "Pendiente" ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
             Cancelar
           </button>

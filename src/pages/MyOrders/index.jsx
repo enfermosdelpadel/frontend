@@ -5,7 +5,7 @@ import { ShoppingCartContext } from "../../Context"
 import Spinner from "../../Components/Spinner"
 
 function MyOrders() {
-  const { orders, loading } = useContext(ShoppingCartContext)
+  const { orders, loading, cancelOrder } = useContext(ShoppingCartContext)
 
   const ordersbyDate = orders.sort((a, b) => {
     return new Date(b.order_date) - new Date(a.order_date)
@@ -36,6 +36,7 @@ function MyOrders() {
             totalProds={order.quantity}
             datePurchase={order.order_date}
             status={order.status}
+            cancelOrder={cancelOrder}
           />
         ))}
       </div>

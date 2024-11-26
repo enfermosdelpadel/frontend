@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
 import { createContext, useState, useEffect } from "react"
 import { supabase } from "../supabase/client"
+import { toast } from "react-hot-toast"
 
 export const ShoppingCartContext = createContext()
 
@@ -178,17 +179,18 @@ export const ShoppingCartProvider = ({ children }) => {
     console.log("Detalles del pedido agregados:", detailData)
     return detailData
   }
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const { data, error } = await supabase
-        .from("orders")
-        .select("*,profiles(*)")
-        .eq("profile_id", user?.id)
-      if (error) {
-        throw error
-      }
-      setOrders(data)
+
+  const fetchOrders = async () => {
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*,profiles(*)")
+      .eq("profile_id", user?.id)
+    if (error) {
+      throw error
     }
+    setOrders(data)
+  }
+  useEffect(() => {
     fetchOrders()
   }, [user])
 
@@ -285,9 +287,8 @@ export const ShoppingCartProvider = ({ children }) => {
   const updateProfile = async (data) => {
     const { error } = await supabase
       .from("profiles")
-      .insert(data)
-      .eq("id", user.id)
-    alert("Perfil Actualizado")
+      .upsert(data, { onConflict: "id" })
+    toast.success("Perfil actualizado con exito")
     fetchProfiles(user)
     if (error) {
       throw error
@@ -328,6 +329,8 @@ export const ShoppingCartProvider = ({ children }) => {
     if (error) {
       throw error
     }
+    fetchOrders()
+    toast.success("Compra cancelada con exito")
   }
 
   return (
@@ -378,6 +381,7 @@ export const ShoppingCartProvider = ({ children }) => {
         setLoading,
         sendEmail,
         cancelOrder,
+        toast,
       }}
     >
       {children}
