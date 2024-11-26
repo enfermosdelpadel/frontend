@@ -2,6 +2,7 @@ import Layout from "../../Components/Layout"
 import { useContext } from "react"
 import { ShoppingCartContext } from "../../Context"
 import { useForm } from "react-hook-form"
+import { Toaster } from "react-hot-toast"
 
 function MyAccount() {
   const { userProfiles, updateProfile } = useContext(ShoppingCartContext)
@@ -12,12 +13,22 @@ function MyAccount() {
   } = useForm()
 
   const onSubmit = (data) => {
-    updateProfile(data)
-    console.log(data)
+    const updatedData = {
+      ...data,
+      id: userProfiles?.[0]?.id,
+      first_name: data.first_name ?? userProfiles?.[0]?.first_name,
+      last_name: data.last_name ?? userProfiles?.[0]?.last_name,
+      address: data.address ?? userProfiles?.[0]?.address,
+      dni: data.dni ?? userProfiles?.[0]?.dni,
+      phone: data.phone ?? userProfiles?.[0]?.phone,
+    }
+    updateProfile(updatedData)
+    console.log(updatedData)
   }
 
   return (
     <Layout>
+      <Toaster gutter={30} duration={4000} position="bottom-center" />
       <form
         className="bg-white shadow-md rounded px-12 pt-6 pb-8 mb-4 mt-8 w-96"
         onSubmit={handleSubmit(onSubmit)}
