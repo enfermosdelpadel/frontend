@@ -61,35 +61,35 @@ export const ShoppingCartProvider = ({ children }) => {
         throw error
       } else {
         const stockProducts = data.reduce((acc, item) => {
-          if (!acc[item.product_id]) {
-            acc[item.product_id] = {
-              id: item.product_id,
+          if (!acc[item.prd_id]) {
+            acc[item.prd_id] = {
+              id: item.prd_id,
               color: [],
               size: [],
             }
           }
-          acc[item.product_id].stock = item.stock
-          acc[item.product_id].price = item.price
-          acc[item.product_id].sub_type = item.sub_type
-          acc[item.product_id].type = item.type
-          acc[item.product_id].model = item.model
-          acc[item.product_id].brand = item.brand
-          acc[item.product_id].gender = item.gender
-          acc[item.product_id].image = item.image
-          acc[item.product_id].description = item.description
+          acc[item.prd_id].stock = item.stock
+          acc[item.prd_id].price = item.price
+          acc[item.prd_id].sub_type = item.sub_type
+          acc[item.prd_id].type = item.type
+          acc[item.prd_id].model = item.model
+          acc[item.prd_id].brand = item.brand
+          acc[item.prd_id].gender = item.gender
+          acc[item.prd_id].image = item.image
+          acc[item.prd_id].description = item.description
 
-          const colorIndex = acc[item.product_id].color.findIndex(
+          const colorIndex = acc[item.prd_id].color.findIndex(
             (color) => color === item.color
           )
           if (colorIndex === -1) {
-            acc[item.product_id].color.push(item.color)
+            acc[item.prd_id].color.push(item.color)
           }
 
-          const sizeIndex = acc[item.product_id].size.findIndex(
+          const sizeIndex = acc[item.prd_id].size.findIndex(
             (size) => size === item.size
           )
           if (sizeIndex === -1) {
-            acc[item.product_id].size.push(item.size)
+            acc[item.prd_id].size.push(item.size)
           }
 
           return acc

@@ -23,7 +23,6 @@ function MyAccount() {
       phone: data.phone ?? userProfiles?.[0]?.phone,
     }
     updateProfile(updatedData)
-    console.log(updatedData)
   }
 
   return (
