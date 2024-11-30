@@ -14,12 +14,21 @@ function CardConfirm() {
     setOpenModal,
     count,
     prodToShow,
+    toast,
   } = useContext(ShoppingCartContext)
   let [quantity, setQuantity] = useState(1)
   let [selectedSize, setSelectedSize] = useState(null)
 
   const addProdToCart = (event, productData) => {
     event.stopPropagation()
+    if (quantity > prodToShow.stock || !selectedSize) {
+      if (!selectedSize) {
+        toast.error("Debes seleccionar un talle")
+      } else {
+        toast.error("No hay stock suficiente")
+      }
+      return
+    }
     setCount(count + 1)
     setCartProds([...cartProds, productData])
     openCheckoutSideMenu()

@@ -33,8 +33,23 @@ const CheckoutSideMenu = () => {
     0
   )
   //Checkout Mail
-  const msg =
-    "<br/> <b>Gracias por tu compra! </b><br/> <br/> Puedes realizar el pago al siguiente número de cuenta:<br/> CBU: 212453125533432 </br/> Alias: edp.mp<br/></br/> EDP"
+  const msg = `
+    <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1)">
+      <b style="font-size: 1.2rem">Gracias por tu compra!</b>
+      <p style="margin-top: 1rem; font-size: 1rem">Puedes realizar el pago al siguiente número de cuenta:</p>
+      <ul style="list-style: none; padding: 0; margin: 0">
+        <li style="margin-bottom: 0.5rem">CBU: 212453125533432</li>
+        <li style="margin-bottom: 0.5rem">Alias: edp.store.mp</li>
+      </ul>
+      <p style="text-align: center; margin-top: 1.5rem;">
+          <a href="https://edp-front.netlify.app/">
+            <img
+              src="https://cniymayhyvbjdmrlopea.supabase.co/storage/v1/object/public/images/public/utils/footer-mail.png?t=2024-11-29T23%3A26%3A25.470Z"
+              alt="Logo de EDG"
+              style="width: 100%; height: auto; max-width: 694px;"
+            />
+          </a>
+        </p></div>`
 
   const infoMail = {
     to: user?.email,
