@@ -143,7 +143,7 @@ export const ShoppingCartProvider = ({ children }) => {
         {
           order_number: generateOrderNumber(user.id),
           profile_id: user.id,
-          order_date: new Date(),
+          order_date: new Date(Date.now() - 3 * 60 * 60 * 1000),
           total: totalPrice,
           quantity: totalProds,
           status: "Pendiente",
@@ -242,7 +242,11 @@ export const ShoppingCartProvider = ({ children }) => {
     })
     fetchUser()
     if (result.error) {
-      alert(`Error en el Logueo: ${result.error.message}`)
+      if (result.error.message === "Invalid login credentials") {
+        toast.error("Credenciales inválidas")
+      } else {
+        toast.error(`Error en el Logueo: ${result.error.message}`)
+      }
     }
   }
 

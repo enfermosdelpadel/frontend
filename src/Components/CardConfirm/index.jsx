@@ -128,7 +128,7 @@ function CardConfirm() {
                       <button
                         type="button"
                         className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
-                        onClick={() => setQuantity(Math.max(0, quantity - 1))}
+                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       >
                         <MinusIcon className="h-5 w-5" />
                       </button>
@@ -136,6 +136,7 @@ function CardConfirm() {
                       <input
                         type="number"
                         id="Quantity"
+                        readOnly
                         value={quantity}
                         onChange={(e) => setQuantity(Number(e.target.value))}
                         className="h-10 w-10 border-transparent text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
