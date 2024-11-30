@@ -21,11 +21,16 @@ function CardConfirm() {
 
   const addProdToCart = (event, productData) => {
     event.stopPropagation()
-    if (quantity > prodToShow.stock || !selectedSize) {
-      if (!selectedSize) {
-        toast.error("Debes seleccionar un talle")
-      } else {
+    if (
+      quantity > prodToShow.stock ||
+      ((prodToShow.type.includes("Indumentaria") ||
+        prodToShow.type.includes("Zapatillas")) &&
+        !selectedSize)
+    ) {
+      if (quantity > prodToShow.stock) {
         toast.error("No hay stock suficiente")
+      } else {
+        toast.error("Debes seleccionar un talle")
       }
       return
     }
