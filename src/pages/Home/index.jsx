@@ -11,6 +11,7 @@ import { Checkout } from "../../Components/Checkout"
 import { Carousel } from "../../Components/Carousel"
 import { Footer } from "../../Components/Footer"
 import Spinner from "../../Components/Spinner"
+import { Toaster } from "react-hot-toast"
 
 function Home() {
   const {
@@ -64,6 +65,7 @@ function Home() {
   return (
     <Layout>
       <Carousel />
+      <Toaster gutter={30} duration={4000} position="bottom-center" />
       <div className="flex items-center justify-center relative w-80 mb-4"></div>
       <div className="mt-2 max-w-screen-md w-full h-12 ">
         <input
