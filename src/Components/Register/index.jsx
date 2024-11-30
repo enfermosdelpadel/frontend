@@ -18,7 +18,7 @@ function Register({ setShowRegister }) {
     setRegisterModal(true)
   }
   return (
-    <section className="bg-white mt-8">
+    <section className="bg-white mt-8 rounded-2xl">
       <div className="flex flex-col lg:grid lg:min-h-lg lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img

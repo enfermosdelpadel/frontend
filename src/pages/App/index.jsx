@@ -1,6 +1,8 @@
-import { useRoutes, BrowserRouter } from "react-router-dom"
+import { useRoutes, BrowserRouter, Navigate } from "react-router-dom"
 import "./App.css"
 import Navbar from "../../Components/Navbar"
+import { useContext } from "react"
+import { ShoppingCartContext } from "../../Context"
 import Home from "../Home"
 import MyAccount from "../MyAccount"
 import { ShoppingCartProvider } from "../../Context"
@@ -12,6 +14,8 @@ import CheckoutSideMenu from "../../Components/CheckoutSideMenu"
 import { AboutUs } from "../AboutUs"
 
 const AppRoutes = () => {
+  const { isUserLogin } = useContext(ShoppingCartContext)
+
   let routes = useRoutes([
     { path: "/", element: <Home /> },
     { path: "/:type", element: <Home /> },
@@ -21,7 +25,11 @@ const AppRoutes = () => {
     { path: "/my-orders/last", element: <MyOrder /> },
     { path: "/my-orders/:id", element: <MyOrder /> },
     { path: "*", element: <NotFound /> },
-    { path: "/sign-in", element: <SignIn /> },
+    {
+      path: "/sign-in",
+      element: isUserLogin ? <Navigate to="/" /> : <SignIn />,
+    },
+
     { path: "/about-us", element: <AboutUs /> },
   ])
   return routes
