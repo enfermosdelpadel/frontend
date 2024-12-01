@@ -35,12 +35,23 @@ const CheckoutSideMenu = () => {
   //Checkout Mail
   const msg = `
     <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1)">
-      <b style="font-size: 1.2rem">Gracias por tu compra!</b>
+      <b style="font-size: 1.2rem">Gracias por tu compra! &#129321;</b>
       <p style="margin-top: 1rem; font-size: 1rem">Puedes realizar el pago al siguiente número de cuenta:</p>
       <ul style="list-style: none; padding: 0; margin: 0">
-        <li style="margin-bottom: 0.5rem">CBU: 212453125533432</li>
-        <li style="margin-bottom: 0.5rem">Alias: edp.store.mp</li>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem">
+          <tbody>
+            <tr>
+              <th style="padding: 0.5rem; border: 1px solid #ddd">CBU</th>
+              <td style="padding: 0.5rem; border: 1px solid #ddd">212453125533432</td>
+            </tr>
+            <tr>
+              <th style="padding: 0.5rem; border: 1px solid #ddd">Alias</th>
+              <td style="padding: 0.5rem; border: 1px solid #ddd">edp.store.mp</td>
+            </tr>
+          </tbody>
+        </table>
       </ul>
+      <p style="margin-top: 1rem; font-size: 1rem">Cuando cambie el estado del pedido te estaremos notificando por correo. </p>
       <p style="text-align: center; margin-top: 1.5rem;">
           <a href="https://edp-front.netlify.app/">
             <img
@@ -56,15 +67,17 @@ const CheckoutSideMenu = () => {
     subject: "Pedido realizado con exito",
     html: msg,
   }
-  const handleCheckout = () => {
-    sendEmail(infoMail)
-    setModalCheckout(false)
-  }
+  // const handleCheckout = () => {
+  //   sendEmail(infoMail)
+  //   console.log("infoMail")
+  //   setModalCheckout(false)
+  // }
 
   const ShoppingCart = () => {
     createAndSendOrder(totalPrice(cartProds), totalProds, cartProds)
     closeCheckoutSideMenu()
-    handleCheckout()
+    // handleCheckout()
+    sendEmail(infoMail)
     setModalCheckout(true)
   }
 

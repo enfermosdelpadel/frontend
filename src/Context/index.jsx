@@ -152,8 +152,7 @@ export const ShoppingCartProvider = ({ children }) => {
       .select("id")
 
     if (orderError) {
-      console.error("Error al crear el pedido:", orderError)
-      alert("Error al crear el pedido", orderError)
+      toast.error("Error al crear el pedido")
       return null
     }
     setOrderID(orderData[0].id)
