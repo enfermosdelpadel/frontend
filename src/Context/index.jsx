@@ -94,7 +94,10 @@ export const ShoppingCartProvider = ({ children }) => {
 
           return acc
         }, {})
-        setItems(Object.values(stockProducts))
+        const sortedItems = Object.values(stockProducts).sort(
+          (a, b) => b.id - a.id
+        )
+        setItems(sortedItems)
       }
     }
     fetchProducts()
