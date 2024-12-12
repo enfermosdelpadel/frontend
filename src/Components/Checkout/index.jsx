@@ -22,17 +22,19 @@ function Checkout() {
         <div className="mt-4">
           <span className="mt-2 block text-lg ">
             No olvides completar tu{" "}
-            <a className="text-red-600 font-bold" href="my-account">
-              perfil
-            </a>{" "}
-            para recibir tu pedido!{" "}
+            <a className="text-red-600 font-bold">perfil</a> para recibir tu
+            pedido!{" "}
           </span>
           <span className="mt-2 block text-lg ">
             <a className="mt-4 pr-2">Puedes seguir el estado de tu compra en</a>
-            <a className="text-blue-600 font-bold" href="my-orders">
-              Mis Órdenes
-            </a>
+            <a className="text-blue-600 font-bold">Mis Órdenes</a>
           </span>
+          <button
+            className="mt-6 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700"
+            onClick={() => (window.location.href = "/")}
+          >
+            Aceptar
+          </button>
         </div>
       </div>
     </section>
